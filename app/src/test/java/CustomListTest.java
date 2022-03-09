@@ -12,10 +12,12 @@ import java.util.ArrayList;
 
 public class CustomListTest {
     private CustomList list;
+    private City mockCity;
 
     @Before
     public void createList() {
         list = new CustomList(null, new ArrayList<City>());
+        mockCity = new City("Edmonton", "AB");
     }
 
     @Test
@@ -27,10 +29,18 @@ public class CustomListTest {
 
     @Test
     public void hasCityTest() {
-        City city1 = new City("Edmonton", "AB");
-        City city2 = new City("Edmonton", "AB");
-        list.addCity(city1);
-        assertTrue(list.hasCity(city1)); // exists
-        assertFalse(list.hasCity(city2)); // does not exist
+        list.addCity(mockCity);
+        assertTrue(list.hasCity(mockCity)); // exists
+        assertFalse(list.hasCity(new City("Calgary", "AB"))); // does not exist
+    }
+
+    @Test
+    public void deleteCityTest(){
+        // Add city and check that it is in there
+        list.addCity(mockCity);
+        assertTrue(list.hasCity(mockCity));
+        // Remove the city
+        list.deleteCity(mockCity);
+        assertFalse(list.hasCity(mockCity));
     }
 }
